@@ -19,6 +19,8 @@ int main(int argc, char** argv)
 	cv::Mat frame;														// Кадр
 	cv::Mat dst;
 	std::map<char, cv::Mat> samples;
+	std::map<string, cv::Mat> strings;
+
 	// Инициализируем tesseract
 	tesseract::TessBaseAPI* api = new tesseract::TessBaseAPI();
 	if (api->Init(NULL, "rus")) {
@@ -73,7 +75,9 @@ int main(int argc, char** argv)
 		int key = cv::waitKey(100);
 		if (key == 27) break;
 		else if (key == 32) {
-			recog_Mat(api, params, dst, samples);		
+			//cout<< "Chars recognized:" << recog_Mat(api, params, dst, samples)<<endl;
+			
+			cout << recog_String(api, params, dst,strings);
 			}
 		} 
 
@@ -84,8 +88,8 @@ int main(int argc, char** argv)
 		}
 		counter++;
 		*/
-	
-		dump_images(samples, ".jpg");
+		dump_images(strings, ".jpg");
+		//dump_images(samples, ".jpg");
 	
 	return 0;
 }
